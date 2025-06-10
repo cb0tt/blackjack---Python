@@ -9,19 +9,19 @@ card_values = {
 
 def deal():
     cards = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]
-    return choice(cards) # deal a random card
+    return choice(cards) 
 
 def calculate_total(cards):
-    ace = 0 # amount of aces in the hand
+    ace = 0 
     total = 0
-    for card in cards: # loop through each card in the hand (cards)
-        total += card_values[card] # each element in card values is assigned to the element card
+    for card in cards: 
+        total += card_values[card] 
         if card == 'Ace':
             ace += 1
 
-    while total > 21 and ace: # if the total is over 21 this converts the ace to a 1 instead of 11.
+    while total > 21 and ace: 
         total -= 10
-        ace -= 1 # one fewer ace to downgrade,
+        ace -= 1 
     return total
 
 def compare_player_dealer(player_score, dealer_score):
@@ -43,19 +43,18 @@ def compare_player_dealer(player_score, dealer_score):
 def play_blackjack():
     game_over = False
     while not game_over:
-        player = [] #player cards will be stored in this list
-        dealer = [] # dealer cards will be stored in this list
+        player = [] 
+        dealer = [] 
         dealer_score = 0
         player_score = 0
 
-        dealer.append(deal()) # add each dealt card into the dealer list
+        dealer.append(deal()) 
         dealer.append(deal())
         print(f"The dealers cards are {dealer[0]} and {dealer[1]}.")
         player.append(deal())
         player.append(deal())
         print(f"Your cards are {player[0]} and {player[1]}.")
 
-        # Start a loop to keep asking if the player wants another card
         while True:
             another_card = input(f"Hit? Type 'Y' for yes or 'N' for no. ").lower()
             while another_card not in ['y', 'n']:
@@ -63,17 +62,17 @@ def play_blackjack():
 
             if another_card == 'y':
                 player.append(deal())
-                print(f"{player[-1]}") # -1 reveals the most recently added card
+                print(f"{player[-1]}") 
                 player_score = calculate_total(player)
                 if player_score >= 21:
                     break
             else:
                 break
 
-        dealer_score = calculate_total(dealer) # dealer_score is equal to the cards in dealer totals are calculated by the calculate_total function
+        dealer_score = calculate_total(dealer) 
         while dealer_score <= 16:
             dealer.append(deal())
-            dealer_score = calculate_total(dealer) # update dealer score after each new card
+            dealer_score = calculate_total(dealer) 
 
         game_over = True
 
